@@ -59,5 +59,25 @@
   }
 </script>
 <script src="flutter_bootstrap.js" async></script>
+<script>
+  (async function checkVersion() {
+    try {
+      const res = await fetch('version.json?v=' + Date.now());
+      const newVersion = await res.text().trim();
+      const currentVersion = localStorage.getItem('app_version');
+
+      if (currentVersion && currentVersion !== newVersion) {
+        if (confirm("A new version of this app is available. Reload now?")) {
+          localStorage.setItem('app_version', newVersion);
+          location.reload(true);
+        }
+      } else {
+        localStorage.setItem('app_version', newVersion);
+      }
+    } catch (e) {
+      console.error('Version check failed', e);
+    }
+  })();
+</script>
 </body>
 </html>
