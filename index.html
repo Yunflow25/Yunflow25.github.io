@@ -63,7 +63,7 @@
   (async function checkVersion() {
     try {
       const res = await fetch('version.json?v=' + Date.now());
-      const newVersion = await res.text().trim();
+      const newVersion = (await res.text()).trim();
       const currentVersion = localStorage.getItem('app_version');
 
       if (currentVersion && currentVersion !== newVersion) {
